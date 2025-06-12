@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تسجيل النقاط للأنشطة المهنية - EPA Scoring System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-user-nurse"></i>
+                    <h1>نظام تسجيل النقاط للأنشطة المهنية</h1>
+                    <span class="subtitle">EPA Scoring System</span>
+                </div>
+                <nav class="nav">
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        لوحة التحكم
+                    </a>
+                    <a href="#assessment" class="nav-link" data-section="assessment">
+                        <i class="fas fa-clipboard-check"></i>
+                        إضافة تقييم
+                    </a>
+                    <a href="#students" class="nav-link" data-section="students">
+                        <i class="fas fa-users"></i>
+                        الطلاب
+                    </a>
+                    <a href="#reports" class="nav-link" data-section="reports">
+                        <i class="fas fa-chart-bar"></i>
+                        التقارير
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> لوحة التحكم</h2>
+                    <p>نظرة عامة على نظام تسجيل النقاط للأنشطة المهنية القابلة للتفويض</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-students">0</h3>
+                            <p>إجمالي الطلاب</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>8</h3>
+                            <p>الأنشطة المهنية الأساسية</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-assessments">0</h3>
+                            <p>إجمالي التقييمات</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="avg-score">0.0</h3>
+                            <p>متوسط النقاط</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EPA Overview -->
+                <div class="epa-overview">
+                    <h3><i class="fas fa-list"></i> الأنشطة المهنية الأساسية (Core EPAs)</h3>
+                    <div class="epa-grid" id="epa-grid">
+                        <!-- EPA cards will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3><i class="fas fa-clock"></i> النشاط الأخير</h3>
+                    <div class="activity-list" id="recent-activity">
+                        <!-- Recent activities will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assessment Section -->
+            <section id="assessment" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-clipboard-check"></i> إضافة تقييم جديد</h2>
+                    <p>إضافة تقييم جديد لطالب في أحد الأنشطة المهنية</p>
+                </div>
+
+                <div class="assessment-form-container">
+                    <form id="assessment-form" class="assessment-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-select">
+                                    <i class="fas fa-user-graduate"></i>
+                                    الطالب
+                                </label>
+                                <select id="student-select" name="student_id" required>
+                                    <option value="">اختر الطالب</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="assessor-select">
+                                    <i class="fas fa-user-tie"></i>
+                                    المقيم
+                                </label>
+                                <select id="assessor-select" name="assessor_id" required>
+                                    <option value="">اختر المقيم</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="epa-select">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    النشاط المهني الأساسي
+                                </label>
+                                <select id="epa-select" name="epa_id" required>
+                                    <option value="">اختر النشاط المهني</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="indicator-select">
+                                    <i class="fas fa-tasks"></i>
+                                    مؤشر الأداء
+                                </label>
+                                <select id="indicator-select" name="indicator_id" required>
+                                    <option value="">اختر مؤشر الأداء</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="score-input">
+                                    <i class="fas fa-star"></i>
+                                    النقاط (1-5)
+                                </label>
+                                <input type="number" id="score-input" name="base_score" 
+                                       min="1" max="5" step="0.1" required>
+                                <div class="score-guide">
+                                    <span>1 = مبتدئ</span>
+                                    <span>2 = متقدم مبتدئ</span>
+                                    <span>3 = كفء</span>
+                                    <span>4 = ماهر</span>
+                                    <span>5 = خبير</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="evidence-select">
+                                    <i class="fas fa-file-alt"></i>
+                                    نوع الدليل
+                                </label>
+                                <select id="evidence-select" name="evidence_type" required>
+                                    <option value="">اختر نوع الدليل</option>
+                                    <option value="Direct_Observation">ملاحظة مباشرة</option>
+                                    <option value="Simulation">محاكاة</option>
+                                    <option value="Portfolio">ملف الإنجاز</option>
+                                    <option value="Case_Study">دراسة حالة</option>
+                                    <option value="Peer_Review">مراجعة الأقران</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="context-select">
+                                    <i class="fas fa-hospital"></i>
+                                    بيئة الرعاية (اختياري)
+                                </label>
+                                <select id="context-select" name="context_id">
+                                    <option value="">اختر بيئة الرعاية</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tech-select">
+                                    <i class="fas fa-laptop-medical"></i>
+                                    مستوى التكنولوجيا (اختياري)
+                                </label>
+                                <select id="tech-select" name="tech_level_id">
+                                    <option value="">اختر مستوى التكنولوجيا</option>
+                                    <option value="BASIC_TECH">تكنولوجيا أساسية</option>
+                                    <option value="ADV_TECH">تكنولوجيا متقدمة</option>
+                                    <option value="INNOV_TECH">تكنولوجيا مبتكرة</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="notes-input">
+                                <i class="fas fa-sticky-note"></i>
+                                ملاحظات (اختياري)
+                            </label>
+                            <textarea id="notes-input" name="notes" rows="3" 
+                                      placeholder="أضف أي ملاحظات إضافية حول التقييم"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                حفظ التقييم
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                <i class="fas fa-undo"></i>
+                                إعادة تعيين
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Students Section -->
+            <section id="students" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> إدارة الطلاب</h2>
+                    <p>عرض وإدارة ملفات الطلاب ونقاطهم</p>
+                </div>
+
+                <div class="students-container">
+                    <div class="students-filters">
+                        <input type="text" id="student-search" placeholder="البحث عن طالب...">
+                        <select id="program-filter">
+                            <option value="">جميع البرامج</option>
+                            <option value="BSN">بكالوريوس التمريض</option>
+                        </select>
+                        <select id="year-filter">
+                            <option value="">جميع السنوات</option>
+                            <option value="1">السنة الأولى</option>
+                            <option value="2">السنة الثانية</option>
+                            <option value="3">السنة الثالثة</option>
+                            <option value="4">السنة الرابعة</option>
+                        </select>
+                    </div>
+
+                    <div class="students-grid" id="students-grid">
+                        <!-- Student cards will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> التقارير والإحصائيات</h2>
+                    <p>تقارير شاملة عن أداء الطلاب والأنشطة المهنية</p>
+                </div>
+
+                <div class="reports-container">
+                    <div class="report-cards">
+                        <div class="report-card">
+                            <h3><i class="fas fa-user-graduate"></i> تقرير الطالب</h3>
+                            <p>تقرير مفصل عن أداء طالب محدد</p>
+                            <select id="report-student-select">
+                                <option value="">اختر الطالب</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="generateStudentReport()">
+                                <i class="fas fa-file-pdf"></i>
+                                إنشاء التقرير
+                            </button>
+                        </div>
+
+                        <div class="report-card">
+                            <h3><i class="fas fa-clipboard-list"></i> تقرير النشاط المهني</h3>
+                            <p>إحصائيات شاملة عن نشاط مهني محدد</p>
+                            <select id="report-epa-select">
+                                <option value="">اختر النشاط المهني</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="generateEPAReport()">
+                                <i class="fas fa-chart-line"></i>
+                                إنشاء التقرير
+                            </button>
+                        </div>
+
+                        <div class="report-card">
+                            <h3><i class="fas fa-award"></i> تقرير الجودة</h3>
+                            <p>تقرير موثوقية التقييم وضمان الجودة</p>
+                            <button class="btn btn-primary" onclick="generateQualityReport()">
+                                <i class="fas fa-shield-alt"></i>
+                                إنشاء التقرير
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="report-results" id="report-results">
+                        <!-- Report results will be displayed here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>جاري التحميل...</p>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="message-container" class="message-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
